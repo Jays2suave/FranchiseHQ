@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franchise Hub</title>
+<style>
+:root{--bg:#080b12;--panel:#111722;--panel2:#151d2a;--text:#f5f7fb;--muted:#8e9aad;--accent:#39ff88;--accent2:#6ea8ff;--border:#263143}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:radial-gradient(circle at 80% -10%,#18345a 0,#080b12 40%);color:var(--text)}
+nav{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;border-bottom:1px solid var(--border);background:#080b12e8;backdrop-filter:blur(12px);position:sticky;top:0;z-index:5}
+.logo{font-size:22px;font-weight:900;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:22px}.navlinks a{color:var(--muted);text-decoration:none;font-size:14px}.navlinks a:hover{color:#fff}
+.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer}.primary{background:var(--accent);color:#06110b}.ghost{background:var(--panel2);color:#fff;border:1px solid var(--border)}
+.hero{padding:80px 7% 50px;max-width:1200px;margin:auto}.badge{display:inline-block;padding:7px 11px;border:1px solid #2c5b45;border-radius:999px;color:var(--accent);font-size:12px;font-weight:800;background:#102017}
+h1{font-size:clamp(42px,7vw,76px);line-height:.95;margin:18px 0;letter-spacing:-4px;max-width:850px}.hero p{max-width:650px;color:var(--muted);font-size:18px;line-height:1.6}
+.actions{display:flex;gap:12px;margin-top:25px;flex-wrap:wrap}
+.container{max-width:1200px;margin:auto;padding:25px 7% 80px}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:35px 0 18px}.sectionhead h2{margin:0;font-size:28px}.sectionhead p{margin:5px 0 0;color:var(--muted)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.filter{background:var(--panel);color:#fff;border:1px solid var(--border);padding:10px 13px;border-radius:9px;cursor:pointer}.filter.active{border-color:var(--accent);color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--border);border-radius:15px;padding:18px;transition:.2s}.card:hover{transform:translateY(-3px);border-color:#3b4b63}.game{font-size:11px;color:var(--accent);font-weight:900;text-transform:uppercase}.card h3{margin:8px 0}.meta{color:var(--muted);font-size:13px;line-height:1.7}.spots{display:flex;justify-content:space-between;align-items:center;margin-top:15px}.open{color:var(--accent);font-weight:800;font-size:13px}
+.discord{margin-top:45px;padding:30px;border:1px solid #344c70;border-radius:18px;background:linear-gradient(120deg,#111b2b,#111722)}.discord h2{margin:0 0 8px}.discord p{color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.feature{padding:20px;background:var(--panel);border:1px solid var(--border);border-radius:14px}.feature b{display:block;margin-bottom:7px}.feature span{font-size:13px;color:var(--muted);line-height:1.5}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{width:min(520px,100%);background:#101722;border:1px solid var(--border);border-radius:18px;padding:25px}.modalbox h2{margin-top:0}input,select,textarea{width:100%;margin:7px 0 14px;padding:12px;border-radius:9px;border:1px solid var(--border);background:#080d15;color:#fff}label{font-size:13px;color:var(--muted)}.close{float:right;background:none;border:0;color:#aaa;font-size:22px;cursor:pointer}
+footer{border-top:1px solid var(--border);padding:25px 7%;color:var(--muted);font-size:12px}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr 1fr}.navlinks{display:none}}
+@media(max-width:560px){.grid,.features{grid-template-columns:1fr}h1{letter-spacing:-2px}.hero{padding-top:55px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">FRANCHISE <span>HUB</span></div>
+  <div class="navlinks"><a href="#leagues">Find a League</a><a href="#features">Features</a><a href="#discord">Discord</a></div>
+  <button class="btn primary" onclick="openModal()">Create League</button>
+</nav>
+
+<header class="hero">
+  <span class="badge">MADDEN + NBA 2K COMMUNITY</span>
+  <h1>Find your league.<br>Build your squad.</h1>
+  <p>Franchise Hub is the place to find active Madden and NBA 2K leagues, recruit players, organize your season, and squad up with friends through Discord.</p>
+  <div class="actions"><a class="btn primary" href="#leagues" style="text-decoration:none">Find a Franchise</a><button class="btn ghost" onclick="openModal()">Create a League</button></div>
+</header>
+
+<main class="container">
+<section id="leagues">
+  <div class="sectionhead"><div><h2>Active Leagues</h2><p>Jump into a community and start playing.</p></div></div>
+  <div class="filters">
+    <button class="filter active" onclick="filterGames('all',this)">All</button>
+    <button class="filter" onclick="filterGames('madden',this)">Madden</button>
+    <button class="filter" onclick="filterGames('2k',this)">NBA 2K</button>
+  </div>
+  <div class="grid" id="leagueGrid">
+    <article class="card" data-game="madden"><div class="game">Madden 27</div><h3>Sunday Night Franchise</h3><div class="meta">PS5 • Competitive • 24 teams<br>Advances: 48 hours • All-Madden</div><div class="spots"><span class="open">4 spots open</span><button class="btn ghost" onclick="joinLeague('Sunday Night Franchise')">View League</button></div></article>
+    <article class="card" data-game="madden"><div class="game">Madden 27</div><h3>Gridiron Legends</h3><div class="meta">Xbox Series X|S • Sim • 32 teams<br>Advances: 72 hours • All-Pro</div><div class="spots"><span class="open">7 spots open</span><button class="btn ghost" onclick="joinLeague('Gridiron Legends')">View League</button></div></article>
+    <article class="card" data-game="2k"><div class="game">NBA 2K27</div><h3>MyNBA After Dark</h3><div class="meta">PS5 • Fantasy Draft • 20 teams<br>Advances: 48 hours • Competitive</div><div class="spots"><span class="open">3 spots open</span><button class="btn ghost" onclick="joinLeague('MyNBA After Dark')">View League</button></div></article>
+    <article class="card" data-game="2k"><div class="game">2K Association</div><h3>Bucket Getters</h3><div class="meta">Xbox Series X|S • Realism • 30 teams<br>Advances: 72 hours • Trade rules</div><div class="spots"><span class="open">9 spots open</span><button class="btn ghost" onclick="joinLeague('Bucket Getters')">View League</button></div></article>
+    <article class="card" data-game="madden"><div class="game">Madden 27</div><h3>Road to the Bowl</h3><div class="meta">Cross-play • Casual • 32 teams<br>Advances: 48 hours • Friendly</div><div class="spots"><span class="open">12 spots open</span><button class="btn ghost" onclick="joinLeague('Road to the Bowl')">View League</button></div></article>
+    <article class="card" data-game="2k"><div class="game">NBA 2K27</div><h3>Dynasty Mode</h3><div class="meta">PS5 • Hardcore • 30 teams<br>Advances: 72 hours • No cheese</div><div class="spots"><span class="open">5 spots open</span><button class="btn ghost" onclick="joinLeague('Dynasty Mode')">View League</button></div></article>
+  </div>
+</section>
+
+<section id="features">
+  <div class="sectionhead"><div><h2>Built for franchise players</h2><p>Everything you need to keep a league alive.</p></div></div>
+  <div class="features">
+    <div class="feature">🏈 <b>Madden Leagues</b><span>Recruit, organize, and manage your connected franchise.</span></div>
+    <div class="feature">🏀 <b>NBA 2K Leagues</b><span>Bring MyNBA communities into the same hub.</span></div>
+    <div class="feature">💬 <b>Discord Ready</b><span>Put your league chat, rules, announcements, and recruiting in one place.</span></div>
+    <div class="feature">🏆 <b>Standings & Records</b><span>Track teams, records, schedules, and league history.</span></div>
+  </div>
+</section>
+
+<section class="discord" id="discord">
+  <h2>🔥 Squad up on Discord</h2>
+  <p>Every league can have its own Discord invite so commissioners can run recruiting, trades, scheduling, announcements, and game nights in one place.</p>
+  <button class="btn primary" onclick="alert('Discord invite can be connected here when your server is ready!')">Join Franchise Hub Discord</button>
+</section>
+</main>
+
+<footer>© 2026 Franchise Hub • Built for Madden & NBA 2K franchise communities.</footer>
+
+<div class="modal" id="modal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal()">×</button>
+    <h2>Create your league</h2>
+    <label>League name</label><input id="name" placeholder="e.g. Sunday Night Franchise">
+    <label>Game</label><select id="game"><option>Madden</option><option>NBA 2K</option></select>
+    <label>Platform</label><select><option>PS5</option><option>Xbox Series X|S</option><option>Cross-play</option></select>
+    <label>League description</label><textarea rows="3" placeholder="Rules, schedule, skill level, etc."></textarea>
+    <label>Discord invite</label><input placeholder="https://discord.gg/your-server">
+    <button class="btn primary" style="width:100%" onclick="createLeague()">Publish League</button>
+  </div>
+</div>
+
+<script>
+function openModal(){document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function filterGames(game,btn){
+ document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ document.querySelectorAll('.card').forEach(c=>c.style.display=(game==='all'||c.dataset.game===game)?'block':'none')
+}
+function joinLeague(name){alert('League page for "'+name+'" is ready to be connected to accounts, Discord, and a real database.')}
+function createLeague(){
+ const name=document.getElementById('name').value.trim();
+ if(!name){alert('Give your league a name first!');return}
+ closeModal(); alert(name+' created! The next step is connecting real accounts/database storage so it appears publicly.')
+}
+</script>
+</body>
+</html>
